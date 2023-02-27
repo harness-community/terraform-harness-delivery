@@ -4,6 +4,12 @@
 #
 ####################
 resource "harness_platform_infrastructure" "infrastructure" {
+  lifecycle {
+    precondition {
+      condition     = local.yaml != "invalid-missing-yaml-details"
+      error_message = "[Invalid] One of the following must be provided - 'yaml_data' or 'yaml_file'"
+    }
+  }
   # [Required] (String) Unique identifier of the resource.
   identifier = local.fmt_identifier
   # [Required] (String) Name of the resource.

@@ -1,143 +1,182 @@
-# environments
+# Terraform Modules for Harness Infrastructures
+Terraform Module for creating and managing Harness Infrastructures
 
-## Example
-
-```hcl
-module "environments-harness-management-nonprod" {
-
-  source = "../../environments"
-
-  name            = "non-production"
-  organization_id = module.harness-core.organization_details.id
-  project_id      = module.project-harness-organization-management.project_details.id
-  description     = "NonProd Environment definitions"
-  color           = "#ABABAB"
-  type            = "nonprod"
-  infrastructures = [
-    {
-      name            = "azure-cloud-connection"
-      deployment_type = "NativeHelm"
-      type            = "KubernetesAzure"
-      yaml_data       = <<EOF
-        spec:
-          connectorRef: org.azure
-          subscriptionId: 00000000-0000-0000-0000-000000000000
-          resourceGroup: rg-nonprod-kubernetes
-          cluster: harness
-          namespace: <+service.name>
-          releaseName: release-<+INFRA_KEY>
-        EOF
-    },
-    {
-      name            = "azure-kubernetes-connection"
-      deployment_type = "Kubernetes"
-      type            = "KubernetesAzure"
-      yaml_data       = <<EOF
-        spec:
-          connectorRef: org.azure
-          subscriptionId: 00000000-0000-0000-0000-000000000000
-          resourceGroup: rg-nonprod-kubernetes
-          cluster: harness
-          namespace: default
-          releaseName: release-<+INFRA_KEY>
-        EOF
-    }
-  ]
-  tags = {
-    purpose = "NonProduction"
-  }
-  global_tags = var.global_tags
-}
-
-module "environments-harness-organization-management-nonprod" {
-
-  source = "../../environments"
-
-  name            = "non-production"
-  organization_id = module.harness-core.organization_details.id
-  project_id      = module.project-harness-management.project_details.id
-  description     = "NonProd Environment definitions"
-  color           = "#ABABAB"
-  type            = "nonprod"
-  infrastructures = [
-    {
-      name            = "azure-cloud-connection"
-      deployment_type = "NativeHelm"
-      type            = "KubernetesAzure"
-      yaml_data       = <<EOF
-        spec:
-          connectorRef: org.azure
-          subscriptionId: 00000000-0000-0000-0000-000000000000
-          resourceGroup: rg-nonprod-kubernetes
-          cluster: harness
-          namespace: <+service.name>
-          releaseName: release-<+INFRA_KEY>
-        EOF
-    },
-    {
-      name            = "azure-kubernetes-connection"
-      deployment_type = "Kubernetes"
-      type            = "KubernetesAzure"
-      yaml_data       = <<EOF
-        spec:
-          connectorRef: org.azure
-          subscriptionId: 00000000-0000-0000-0000-000000000000
-          resourceGroup: rg-nonprod-kubernetes
-          cluster: harness
-          namespace: default
-          releaseName: release-<+INFRA_KEY>
-        EOF
-    }
-  ]
-  tags = {
-    purpose = "NonProduction"
-  }
-  global_tags = var.global_tags
-}
-```
-
-## Requirements
-
-No requirements.
+## Summary
+This module handle the creation and managment of Infrastructures by leveraging the Harness Terraform provider
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_harness"></a> [harness](#provider\_harness) | n/a |
-| <a name="provider_time"></a> [time](#provider\_time) | n/a |
+```
+terraform {
+  required_providers {
+    harness = {
+      source = "harness/harness"
+    }
+    time = {
+      source = "hashicorp/time"
+    }
+  }
+}
 
-## Modules
+```
 
-No modules.
+## Variables
 
-## Resources
+_Note: When the identifier variable is not provided, the module will automatically format the identifier based on the provided resource name_
 
-| Name | Type |
-|------|------|
-| [harness_platform_environment.environments](https://registry.terraform.io/providers/harness/harness/latest/docs/resources/platform_environment) | resource |
-| [harness_platform_infrastructure.infrastructure](https://registry.terraform.io/providers/harness/harness/latest/docs/resources/platform_infrastructure) | resource |
-| [time_sleep.environment_setup](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+| Name | Description | Type | Default Value | Mandatory |
+| --- | --- | --- | --- | --- |
+| name | [Required] (String) Name of the resource. | string |  | X |
+| organization_id | [Required] Provide an organization reference ID. Must exist before execution | string | | X |
+| project_id | [Required] Provide an project reference ID. Must exist before execution | string | | X |
+| environment_id | Required] Provide an environment reference ID.  Must exist before execution | string | | X |
+| type | [Required] Type of Infrastructure. Valid values are: KubernetesDirect, KubernetesGcp, ServerlessAwsLambda, Pdc, KubernetesAzure, SshWinRmAzure, SshWinRmAws, AzureWebApp, ECS, GitOps, or CustomDeployment | string | | X |
+| deployment_type | [Required] Infrastructure deployment type. Valid values are Kubernetes, NativeHelm, Ssh, WinRm, ServerlessAwsLambda, AzureWebApp, Custom, ECS | string | | x |
+| identifier | [Optional] Provide a custom identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_' | string | null | |
+| description | [Optional] (String) Description of the resource. | string | Harness Infrastructure created via Terraform | |
+| yaml_file | [Optional] (String) File Path to yaml snippet to include. Must not be provided in conjuction with var.yaml_data.| string | null | One of `yaml_file` or `yaml_data` must be provided. |
+| yaml_data | [Optional] (String) Description of the resource. | string | null | One of `yaml_file` or `yaml_data` must be provided. |
+| yaml_render | [Optional] (Boolean) Determines if the pipeline data should be templatized or is a full pipeline reference file | bool | true | |
+| tags | [Optional] Provide a Map of Tags to associate with the project | map(any) | {} | |
+| global_tags | [Optional] Provide a Map of Tags to associate with the project and resources created | map(any) | {} | |
 
-## Inputs
+## Examples
+### Build a single Infrastructure definition with minimal inputs
+_One of the following must be provided - `yaml_data` or `yaml_file`_
+```
+module "infrastructures" {
+  source = "git@github.com:harness-community/terraform-harness-delivery.git//infrastructures"
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_color"></a> [color](#input\_color) | [Optional] (String) Color of the Environment. | `string` | `null` | no |
-| <a name="input_description"></a> [description](#input\_description) | [Optional] (String) Description of the resource. | `string` | `"Harness Environment created via Terraform"` | no |
-| <a name="input_global_tags"></a> [global\_tags](#input\_global\_tags) | [Optional] Provide a Map of Tags to associate with the project and resources created | `map(any)` | `{}` | no |
-| <a name="input_infrastructures"></a> [infrastructures](#input\_infrastructures) | [Options] Provide a list of maps containing infrastructure details | `any` | `[]` | no |
-| <a name="input_name"></a> [name](#input\_name) | [Required] (String) Name of the resource. | `string` | n/a | yes |
-| <a name="input_organization_id"></a> [organization\_id](#input\_organization\_id) | [Required] Provide an organization reference ID.  Must exist before execution | `string` | n/a | yes |
-| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | [Required] Provide an project reference ID.  Must exist before execution | `string` | n/a | yes |
-| <a name="input_tags"></a> [tags](#input\_tags) | [Optional] Provide a Map of Tags to associate with the environment | `map(any)` | `{}` | no |
-| <a name="input_type"></a> [type](#input\_type) | [Required] (String) The type of environment. Valid values are nonprod or prod | `string` | `"nonprod"` | no |
-| <a name="input_yaml_data"></a> [yaml\_data](#input\_yaml\_data) | [Optional] (String) Yaml data as a string. | `string` | `null` | no |
-| <a name="input_yaml_file"></a> [yaml\_file](#input\_yaml\_file) | [Optional] (String) File Path to yaml snippet to include. Must not be provided in conjuction with var.yaml\_data | `string` | `null` | no |
+  name             = "test-infrastructure"
+  organization_id  = "myorg"
+  project_id       = "myproject"
+  environment_id   = "cloud1"
+  type             = "KubernetesDirect"
+  deployment_type  = "Kubernetes"
+  yaml_data        = <<EOT
+  spec:
+    connectorRef: account.gfgf
+    namespace: asdasdsa
+    releaseName: release-<+INFRA_KEY>
+  EOT
+}
+```
 
-## Outputs
+### Build a single Infrastructure with yaml_file overrides using rendered payload
+```
+module "infrastructures" {
+  source = "git@github.com:harness-community/terraform-harness-content.git//infrastructures"
 
-| Name | Description |
-|------|-------------|
-| <a name="output_environment_details"></a> [environment\_details](#output\_environment\_details) | n/a |
-| <a name="output_infrastructures"></a> [infrastructures](#output\_infrastructures) | n/a |
+  name             = "test-infrastructure"
+  organization_id  = "myorg"
+  project_id       = "myproject"
+  environment_id   = "cloud1"
+  type             = "KubernetesDirect"
+  deployment_type  = "Kubernetes"
+  yaml_file        = "templates/test-infrastructure.yaml"
+
+}
+```
+
+### Build a single Environment with raw yaml_data
+```
+module "infrastructures" {
+  source = "git@github.com:harness-community/terraform-harness-content.git//infrastructures"
+
+  name             = "test-infrastructure"
+  organization_id  = "myorg"
+  project_id       = "myproject"
+  environment_id   = "cloud1"
+  type             = "KubernetesDirect"
+  deployment_type  = "Kubernetes"
+  yaml_render      = false
+  yaml_data        = <<EOT
+  infrastructureDefinition:
+    name: test-infrastructure
+    identifier: test_infrastructure
+    environmentRef: cloud1
+    projectIdentifier: myproject
+    orgIdentifier: myorg
+    description: Harness Infrastructure created via Terraform
+    type: KubernetesDirect
+    deploymentType: Kubernetes
+    allowSimultaneousDeployments: false
+    spec:
+      connectorRef: account.gfgf
+      namespace: asdasdsa
+      releaseName: release-<+INFRA_KEY>
+  EOT
+
+}
+```
+
+### Build multiple Infrastructures
+```
+variable "infrastructures_list" {
+    type = list(map())
+    default = [
+        {
+            name             = "green"
+            organization_id  = "myorg"
+            project_id       = "myproject"
+            environment_id   = "cloud1"
+            type             = "KubernetesDirect"
+            deployment_type  = "Kubernetes"
+            yaml_file        = "templates/kubernetes.yaml"
+        },
+        {
+            name             = "blue"
+            organization_id  = "myorg"
+            project_id       = "myproject"
+            environment_id   = "cloud1"
+            type             = "KubernetesDirect"
+            deployment_type  = "Kubernetes"
+            yaml_file        = "templates/kubernetes.yaml"
+        },
+        {
+            name             = "yellow"
+            organization_id  = "myorg"
+            project_id       = "myproject"
+            environment_id   = "cloud1"
+            type             = "KubernetesDirect"
+            deployment_type  = "Kubernetes"
+            yaml_file        = "templates/kubernetes.yaml"
+        }
+    ]
+}
+
+variable "global_tags" {
+    type = map()
+    default = {
+        environment = "NonProd"
+    }
+}
+
+module "infrastructures" {
+  source = "git@github.com:harness-community/terraform-harness-content.git//infrastructures"
+  for_each = { for infrastructure in var.infrastructures_list : infrastructure.name => infrastructure }
+
+  name             = each.value.name
+  description      = lookup(each.value, "description", "Harness Infrastructure Definition for ${each.value.name}")
+  organization_id  = lookup(each.value, "organization_id", null)
+  project_id       = lookup(each.value, "project_id", null)
+  environment_id   = lookup(each.value, "environment_id", null)
+  type             = lookup(each.value, "type", null)
+  deployment_type  = lookup(each.value, "deployment_type", null)
+  yaml_render      = lookup(each.value, "render", true)
+  yaml_file        = lookup(each.value, "yaml_file", null)
+  yaml_data        = lookup(each.value, "yaml_data", null)
+  tags             = lookup(each.value, "tags", {})
+  global_tags      = var.global_tags
+}
+```
+
+## Contributing
+A complete [Contributors Guide](../CONTRIBUTING.md) can be found in this repository
+
+## Authors
+Module is maintained by Harness, Inc
+
+## License
+
+MIT License. See [LICENSE](../LICENSE) for full details.

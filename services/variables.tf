@@ -72,7 +72,7 @@ variable "project_id" {
 variable "description" {
   type        = string
   description = "[Optional] (String) Description of the resource."
-  default     = "Harness Environment created via Terraform"
+  default     = "Harness Services created via Terraform"
 
   validation {
     condition = (

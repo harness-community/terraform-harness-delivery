@@ -39,38 +39,30 @@ variable "name" {
 }
 variable "organization_id" {
   type        = string
-  description = "[Optional] Provide an organization reference ID.  Must exist before execution"
+  description = "[Required] Provide an organization reference ID.  Must exist before execution"
 
   validation {
     condition = (
-      var.organization_id != null
-      ?
       length(var.organization_id) > 2
-      :
-      true
     )
     error_message = <<EOF
         Validation of an object failed.
-            * [Optional] Provide an organization reference ID.  Must exist before execution.
+            * [Required] Provide an organization reference ID.  Must exist before execution.
         EOF
   }
 }
 
 variable "project_id" {
   type        = string
-  description = "[Optional] Provide an project reference ID.  Must exist before execution"
+  description = "[Required] Provide an project reference ID.  Must exist before execution"
 
   validation {
     condition = (
-      var.project_id != null
-      ?
       can(regex("^([a-zA-Z0-9_]*)", var.project_id))
-      :
-      true
     )
     error_message = <<EOF
         Validation of an object failed.
-            * [Optional] Provide an project reference ID.  Must exist before execution.
+            * [Required] Provide an project reference ID.  Must exist before execution.
         EOF
   }
 }
@@ -85,7 +77,7 @@ variable "environment_id" {
     )
     error_message = <<EOF
         Validation of an object failed.
-            * [Optional] Provide an environment reference ID.  Must exist before execution.
+            * [Required] Provide an environment reference ID.  Must exist before execution.
         EOF
   }
 }
@@ -165,7 +157,7 @@ variable "deployment_type" {
 variable "description" {
   type        = string
   description = "[Optional] (String) Description of the resource."
-  default     = "Harness Environment created via Terraform"
+  default     = "Harness Infrastructure created via Terraform"
 
   validation {
     condition = (
