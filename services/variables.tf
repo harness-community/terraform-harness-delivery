@@ -1,6 +1,6 @@
 ####################
 #
-# Harness Infrastructure Variables
+# Harness Services Variables
 #
 ####################
 variable "identifier" {
@@ -39,125 +39,32 @@ variable "name" {
 }
 variable "organization_id" {
   type        = string
-  description = "[Optional] Provide an organization reference ID.  Must exist before execution"
+  description = "[Required] Provide an organization reference ID.  Must exist before execution"
 
   validation {
     condition = (
-      var.organization_id != null
-      ?
       length(var.organization_id) > 2
-      :
-      true
     )
     error_message = <<EOF
         Validation of an object failed.
-            * [Optional] Provide an organization reference ID.  Must exist before execution.
+            * [Required] Provide an organization name.  Must exist before execution.
         EOF
   }
 }
 
 variable "project_id" {
   type        = string
-  description = "[Optional] Provide an project reference ID.  Must exist before execution"
-
-  validation {
-    condition = (
-      var.project_id != null
-      ?
-      can(regex("^([a-zA-Z0-9_]*)", var.project_id))
-      :
-      true
-    )
-    error_message = <<EOF
-        Validation of an object failed.
-            * [Optional] Provide an project reference ID.  Must exist before execution.
-        EOF
-  }
-}
-
-variable "environment_id" {
-  type        = string
-  description = "[Required] Provide an environment reference ID.  Must exist before execution"
-
-  validation {
-    condition = (
-      can(regex("^([a-zA-Z0-9_]*)", var.environment_id))
-    )
-    error_message = <<EOF
-        Validation of an object failed.
-            * [Optional] Provide an environment reference ID.  Must exist before execution.
-        EOF
-  }
-}
-
-variable "type" {
-  type        = string
-  description = "[Required] Type of Infrastructure. Valid values are: KubernetesDirect, KubernetesGcp, ServerlessAwsLambda, Pdc, KubernetesAzure, SshWinRmAzure, SshWinRmAws, AzureWebApp, ECS, GitOps, or CustomDeployment"
+  description = "[Required] Provide an project reference ID.  Must exist before execution"
 
   validation {
     condition = (
       anytrue([
-        contains([
-          "KubernetesDirect",
-          "KubernetesGcp",
-          "ServerlessAwsLambda",
-          "Pdc",
-          "KubernetesAzure",
-          "SshWinRmAzure",
-          "SshWinRmAws",
-          "AzureWebApp",
-          "ECS",
-          "GitOps",
-          "CustomDeployment"
-        ], var.type)
+        can(regex("^([a-zA-Z0-9_]*)", var.project_id))
       ])
     )
     error_message = <<EOF
         Validation of an object failed.
-            * [Required]   # (String) Type of Infrastructure. Valid values are:
-              - KubernetesDirect
-              - KubernetesGcp
-              - ServerlessAwsLambda
-              - Pdc
-              - KubernetesAzure
-              - SshWinRmAzure
-              - SshWinRmAws
-              - AzureWebApp
-              - ECS
-              - GitOps
-              - CustomDeployment.
-        EOF
-  }
-}
-
-variable "deployment_type" {
-  type        = string
-  description = "[Required] Infrastructure deployment type. Valid values are Kubernetes, NativeHelm, Ssh, WinRm, ServerlessAwsLambda, AzureWebApp, Custom, ECS"
-
-  validation {
-    condition = (
-      contains([
-        "Kubernetes",
-        "NativeHelm",
-        "Ssh",
-        "WinRm",
-        "ServerlessAwsLambda",
-        "AzureWebApp",
-        "Custom",
-        "ECS"
-      ], var.deployment_type)
-    )
-    error_message = <<EOF
-        Validation of an object failed.
-            * [Required] (String) Infrastructure deployment type. Valid values are:
-              - Kubernetes
-              - NativeHelm
-              - Ssh
-              - WinRm
-              - ServerlessAwsLambda
-              - AzureWebApp
-              - Custom
-              - ECS
+            * [Required] Provide an project name.  Must exist before execution.
         EOF
   }
 }
@@ -194,12 +101,6 @@ variable "yaml_render" {
   type        = bool
   description = "[Optional] (Boolean) Determines if the pipeline data should be templatized or is a full pipeline reference file"
   default     = true
-}
-
-variable "allow_simultaneous" {
-  type        = bool
-  description = "[Optional] (Boolean) Determines if infrastructure supports simultaneous deployments"
-  default     = false
 }
 
 variable "tags" {

@@ -46,9 +46,9 @@ variable "organization_id" {
     condition = (
       var.organization_id != null
       ?
-        length(var.organization_id) > 2
+      length(var.organization_id) > 2
       :
-        true
+      true
     )
     error_message = <<EOF
         Validation of an object failed.
@@ -66,9 +66,9 @@ variable "project_id" {
     condition = (
       var.project_id != null
       ?
-        can(regex("^([a-zA-Z0-9_]*)", var.project_id))
+      can(regex("^([a-zA-Z0-9_]*)", var.project_id))
       :
-        true
+      true
     )
     error_message = <<EOF
         Validation of an object failed.

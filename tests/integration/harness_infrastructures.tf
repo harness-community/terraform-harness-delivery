@@ -6,12 +6,9 @@
 locals {
   infrastructure_outputs = flatten([
     {
-      minimum = module.infrastructures_minimal.infrastructure_details
-      # minimal_org_level = module.infrastructures_minimal_org_level.infrastructure_details
-      # minimal_account_level = module.infrastructures_minimal_account_level.infrastructure_details
-      # yaml_file = module.infrastructures_yaml_file.infrastructure_details
-      # yaml_data = module.infrastructures_yaml_data.infrastructure_details
-      # yaml_data_full = module.infrastructures_yaml_data_full.infrastructure_details
+      minimum        = module.infrastructures_minimal.infrastructure_details
+      yaml_file      = module.infrastructures_yaml_file.infrastructure_details
+      yaml_data_full = module.infrastructures_yaml_data_full.infrastructure_details
     }
   ])
 }
@@ -26,7 +23,7 @@ module "infrastructures_minimal" {
   environment_id  = local.environment_id
   type            = "KubernetesDirect"
   deployment_type = "Kubernetes"
-  yaml_data = <<EOT
+  yaml_data       = <<EOT
   spec:
     connectorRef: account.gfgf
     namespace: asdasdsa
@@ -45,7 +42,7 @@ module "infrastructures_yaml_file" {
   environment_id  = local.environment_id
   type            = "KubernetesDirect"
   deployment_type = "Kubernetes"
-  yaml_file = "infrastructures/kubernetes-infra.yaml"
+  yaml_file       = "infrastructures/kubernetes-infra.yaml"
   global_tags     = local.common_tags
 
 }
@@ -60,8 +57,8 @@ module "infrastructures_yaml_data_full" {
   environment_id  = local.environment_id
   type            = "KubernetesDirect"
   deployment_type = "Kubernetes"
-  yaml_render = false
-  yaml_data = <<EOT
+  yaml_render     = false
+  yaml_data       = <<EOT
   infrastructureDefinition:
     name: test-infrastructure-yaml-data-full
     identifier: test_infrastructure_yaml_data_full

@@ -51,46 +51,46 @@ locals {
   yaml = (
     var.yaml_file != null
     ?
-      try(
-        file("${path.module}/rendered/${var.yaml_file}"),
-        file("${path.root}/rendered/${var.yaml_file}"),
-        file(var.yaml_file)
-      )
+    try(
+      file("${path.module}/rendered/${var.yaml_file}"),
+      file("${path.root}/rendered/${var.yaml_file}"),
+      file(var.yaml_file)
+    )
     :
-      var.yaml_data != null
-      ?
-        length(var.yaml_data)==0
-        ?
-          "invalid-missing-yaml-details"
-        :
-          var.yaml_data
-      :
-        var.yaml_data
+    var.yaml_data != null
+    ?
+    length(var.yaml_data) == 0
+    ?
+    "invalid-missing-yaml-details"
+    :
+    var.yaml_data
+    :
+    var.yaml_data
 
   )
 
   yaml_payload = (
     var.yaml_render
     ?
-      templatefile(
-        "${path.module}/templates/environment_definition.yml.tpl",
-        {
-          environment_name        = var.name
-          environment_identifier  = local.fmt_identifier
-          description             = var.description
-          type                    = local.type
-          organization_identifier = var.organization_id
-          project_identifier      = var.project_id
-          yaml_data               = (local.yaml != null ? yamlencode(yamldecode(local.yaml)) : "")
-          tags = yamlencode([
-            for tag in local.common_tags : {
-              split(":", tag)[0] = split(":", tag)[1]
-            }
+    templatefile(
+      "${path.module}/templates/environment_definition.yml.tpl",
+      {
+        environment_name        = var.name
+        environment_identifier  = local.fmt_identifier
+        description             = var.description
+        type                    = local.type
+        organization_identifier = var.organization_id
+        project_identifier      = var.project_id
+        yaml_data               = (local.yaml != null ? yamlencode(yamldecode(local.yaml)) : "")
+        tags = yamlencode([
+          for tag in local.common_tags : {
+            split(":", tag)[0] = split(":", tag)[1]
+          }
 
-          ])
-        }
-      )
+        ])
+      }
+    )
     :
-      local.yaml
+    local.yaml
   )
 }

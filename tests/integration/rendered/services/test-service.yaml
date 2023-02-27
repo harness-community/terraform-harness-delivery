@@ -1,0 +1,3 @@
+serviceDefinition:
+  spec: {}
+  type: Ssh

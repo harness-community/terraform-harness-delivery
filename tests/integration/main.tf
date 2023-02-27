@@ -1,5 +1,7 @@
 # Depends on
 # - harness_environments.tf
+# - harness_infrastructures.tf
+# - harness_services.tf
 
 # Create Testing infrastructure
 resource "harness_platform_organization" "test" {

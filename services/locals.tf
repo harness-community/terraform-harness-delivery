@@ -1,6 +1,6 @@
 ####################
 #
-# Harness Infrastructure Local Variables
+# Harness Services Local Variables
 #
 ####################
 locals {
@@ -40,14 +40,6 @@ locals {
     var.identifier
   )
 
-  type = (
-    var.type == "prod"
-    ?
-    "Production"
-    :
-    "PreProduction"
-  )
-
   yaml = (
     var.yaml_file != null
     ?
@@ -73,18 +65,12 @@ locals {
     var.yaml_render
     ?
     templatefile(
-      "${path.module}/templates/infrastructure_definition.yml.tpl",
+      "${path.module}/templates/services_definition.yml.tpl",
       {
-        infrastructure_name       = var.name
-        infrastructure_identifier = local.fmt_identifier
-        description               = var.description
-        type                      = var.type
-        deployment_type           = var.deployment_type
-        organization_identifier   = var.organization_id
-        project_identifier        = var.project_id
-        environment_identifier    = var.environment_id
-        allow_simultaneous        = var.allow_simultaneous
-        yaml_data                 = (local.yaml != null ? yamlencode(yamldecode(local.yaml)) : "")
+        service_name       = var.name
+        service_identifier = local.fmt_identifier
+        description        = var.description
+        yaml_data          = (local.yaml != null ? yamlencode(yamldecode(local.yaml)) : "")
         tags = yamlencode([
           for tag in local.common_tags : {
             split(":", tag)[0] = split(":", tag)[1]
@@ -96,4 +82,5 @@ locals {
     :
     local.yaml
   )
+
 }
