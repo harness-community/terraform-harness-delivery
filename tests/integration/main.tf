@@ -16,3 +16,12 @@ resource "harness_platform_project" "test" {
   color      = "#0063F7"
   tags       = ["purpose:terraform-testing"]
 }
+
+resource "harness_platform_environment" "test" {
+  identifier = "terraform_harness_delivery"
+  name       = "terraform-harness-delivery"
+  org_id     = harness_platform_organization.test.id
+  project_id = harness_platform_project.test.id
+  tags       = ["purpose:terraform-testing"]
+  type       = "PreProduction"
+}

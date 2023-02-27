@@ -1,6 +1,7 @@
 locals {
   organization_id = harness_platform_organization.test.id
   project_id      = harness_platform_project.test.id
+  environment_id  = harness_platform_environment.test.id
   fmt_prefix = (
     lower(
       replace(
