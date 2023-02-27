@@ -1,0 +1,15 @@
+overrides:
+  manifests:
+    - manifest:
+        identifier: manifestEnv
+        type: Values
+        spec:
+          store:
+            type: Git
+            spec:
+              connectorRef: <+input>
+              gitFetchType: Branch
+              paths:
+                - file1
+              repoName: <+input>
+              branch: master
