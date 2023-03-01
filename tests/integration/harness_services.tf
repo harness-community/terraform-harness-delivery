@@ -15,7 +15,7 @@ locals {
 
 module "services_minimal" {
 
-  source = "../../services"
+  source = "../../modules/services"
 
   name            = "test-service-minimal"
   organization_id = local.organization_id
@@ -31,7 +31,7 @@ module "services_minimal" {
 
 module "services_yaml_file" {
 
-  source = "../../services"
+  source = "../../modules/services"
 
   name            = "test-service-yaml-file"
   organization_id = local.organization_id
@@ -43,7 +43,7 @@ module "services_yaml_file" {
 
 module "services_yaml_data_full" {
 
-  source = "../../services"
+  source = "../../modules/services"
 
   identifier      = "test_service_yaml_data_full"
   name            = "test-service-yaml-data-full"

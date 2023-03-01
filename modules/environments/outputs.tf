@@ -1,6 +1,6 @@
 ####################
 #
-# Harness Pipeline Outputs
+# Harness Environments Outputs
 #
 ####################
 output "environment_details" {
@@ -8,4 +8,5 @@ output "environment_details" {
     time_sleep.environment_setup
   ]
   value = harness_platform_environment.environments
+  description = "Details for the created Harness Environments"
 }

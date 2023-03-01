@@ -15,7 +15,7 @@ locals {
 
 module "infrastructures_minimal" {
 
-  source = "../../infrastructures"
+  source = "../../modules/infrastructures"
 
   name            = "test-infrastructure-minimal"
   organization_id = local.organization_id
@@ -34,7 +34,7 @@ module "infrastructures_minimal" {
 }
 module "infrastructures_yaml_file" {
 
-  source = "../../infrastructures"
+  source = "../../modules/infrastructures"
 
   name            = "test-infrastructure-yaml-file"
   organization_id = local.organization_id
@@ -48,7 +48,7 @@ module "infrastructures_yaml_file" {
 }
 module "infrastructures_yaml_data_full" {
 
-  source = "../../infrastructures"
+  source = "../../modules/infrastructures"
 
   identifier      = "test_infrastructure_yaml_data_full"
   name            = "test-infrastructure-yaml-data-full"

@@ -57,22 +57,22 @@ module "environments" {
 
 ### Build a single Environment with yaml_file overrides using rendered payload
 ```
-module "templates" {
-  source = "git@github.com:harness-community/terraform-harness-content.git//templates"
+module "environments" {
+  source = "git@github.com:harness-community/terraform-harness-content.git//environments"
 
   name             = "test-example"
   organization_id  = "myorg"
   project_id       = "myproject"
   type             = "nonprod"
-  yaml_file        = "templates/test-example.yaml"
+  yaml_file        = "environments/test-example.yaml"
 
 }
 ```
 
 ### Build a single Environment with raw yaml_data
 ```
-module "templates" {
-  source = "git@github.com:harness-community/terraform-harness-content.git//templates"
+module "environments" {
+  source = "git@github.com:harness-community/terraform-harness-content.git//environments"
 
   name             = "test-example"
   organization_id  = "myorg"

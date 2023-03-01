@@ -18,7 +18,7 @@ locals {
 
 module "environments_minimal" {
 
-  source = "../../environments"
+  source = "../../modules/environments"
 
   name            = "test-environment-minimal"
   organization_id = local.organization_id
@@ -28,7 +28,7 @@ module "environments_minimal" {
 }
 module "environments_minimal_org_level" {
 
-  source = "../../environments"
+  source = "../../modules/environments"
 
   name            = "${local.organization_id}-test-environment-minimal"
   organization_id = local.organization_id
@@ -37,7 +37,7 @@ module "environments_minimal_org_level" {
 }
 module "environments_minimal_account_level" {
 
-  source = "../../environments"
+  source = "../../modules/environments"
 
   name        = "${local.organization_id}-test-environment-minimal"
   global_tags = local.common_tags
@@ -45,7 +45,7 @@ module "environments_minimal_account_level" {
 }
 module "environments_yaml_file" {
 
-  source = "../../environments"
+  source = "../../modules/environments"
 
   name            = "test-environment-yaml-file"
   organization_id = local.organization_id
@@ -56,7 +56,7 @@ module "environments_yaml_file" {
 }
 module "environments_yaml_data" {
 
-  source = "../../environments"
+  source = "../../modules/environments"
 
   name            = "test-environment-yaml-data"
   organization_id = local.organization_id
@@ -84,7 +84,7 @@ module "environments_yaml_data" {
 
 module "environments_yaml_data_full" {
 
-  source = "../../environments"
+  source = "../../modules/environments"
 
   name            = "test-environment-yaml-data-full"
   organization_id = local.organization_id

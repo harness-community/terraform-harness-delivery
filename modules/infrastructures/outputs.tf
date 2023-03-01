@@ -8,4 +8,5 @@ output "infrastructure_details" {
     time_sleep.infrastructure_setup
   ]
   value = harness_platform_infrastructure.infrastructure
+  description = "Details for the created Harness Infrastructure"
 }
