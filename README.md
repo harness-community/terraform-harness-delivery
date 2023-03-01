@@ -31,8 +31,8 @@ terraform {
 ## Examples
 ### Retrieve default module outputs
 ```
-module "harness_structure" {
-  source = "git@github.com:harness-community/terraform-harness-structure.git"
+module "harness_delivery" {
+  source = "git@github.com:harness-community/terraform-harness-delivery.git"
 
   harness_platform_account = "myaccount_id"
   harness_platform_key = "myplatform_key"
