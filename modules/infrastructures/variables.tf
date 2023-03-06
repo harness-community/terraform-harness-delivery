@@ -135,7 +135,7 @@ variable "deployment_type" {
         "WinRm",
         "ServerlessAwsLambda",
         "AzureWebApp",
-        "Custom",
+        "CustomDeployment",
         "ECS"
       ], var.deployment_type)
     )
@@ -148,7 +148,7 @@ variable "deployment_type" {
               - WinRm
               - ServerlessAwsLambda
               - AzureWebApp
-              - Custom
+              - CustomDeployment
               - ECS
         EOF
   }
