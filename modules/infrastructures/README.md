@@ -4,16 +4,30 @@ Terraform Module for creating and managing Harness Infrastructures
 ## Summary
 This module handle the creation and managment of Infrastructures by leveraging the Harness Terraform provider
 
+## Supported Terraform Versions
+_Note: These modules require a minimum of Terraform Version 1.2.0 to support the Input Validations and Precondition Lifecycle hooks leveraged in the code._
+
+_Note: The list of supported Terraform Versions is based on the most recent of each release which has been tested against this module._
+
+    - v1.2.9
+    - v1.3.9
+    - v1.4.0
+    - v1.4.2
+
+_Note: Terraform version 1.4.1 will not work due to an issue with the Random provider_
+
 ## Providers
 
 ```
 terraform {
   required_providers {
     harness = {
-      source = "harness/harness"
+      source  = "harness/harness"
+      version = ">= 0.14"
     }
     time = {
-      source = "hashicorp/time"
+      source  = "hashicorp/time"
+      version = "~> 0.9.1"
     }
   }
 }
@@ -39,6 +53,12 @@ _Note: When the identifier variable is not provided, the module will automatical
 | yaml_render | [Optional] (Boolean) Determines if the pipeline data should be templatized or is a full pipeline reference file | bool | true | |
 | tags | [Optional] Provide a Map of Tags to associate with the project | map(any) | {} | |
 | global_tags | [Optional] Provide a Map of Tags to associate with the project and resources created | map(any) | {} | |
+
+## Outputs
+| Name | Description | Value |
+| --- | --- | --- |
+| details | Details for the created Harness infrastructure | Map containing details of created infrastructure
+| infrastructure_details | [Deprecated] Details for the created Harness infrastructure | Map containing details of created infrastructure
 
 ## Examples
 ### Build a single Infrastructure definition with minimal inputs

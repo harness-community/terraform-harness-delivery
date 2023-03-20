@@ -6,9 +6,9 @@
 locals {
   service_outputs = flatten([
     {
-      minimum        = module.services_minimal.service_details
-      yaml_file      = module.services_yaml_file.service_details
-      yaml_data_full = module.services_yaml_data_full.service_details
+      minimum        = module.services_minimal.details
+      yaml_file      = module.services_yaml_file.details
+      yaml_data_full = module.services_yaml_data_full.details
     }
   ])
 }
