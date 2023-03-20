@@ -12,8 +12,9 @@ _Note: The list of supported Terraform Versions is based on the most recent of e
     - v1.2.9
     - v1.3.9
     - v1.4.0
-    - v1.4.1
     - v1.4.2
+
+_Note: Terraform version 1.4.1 will not work due to an issue with the Random provider_
 
 ## Providers
 
