@@ -6,12 +6,12 @@
 locals {
   environment_outputs = flatten([
     {
-      minimum               = module.environments_minimal.environment_details
-      minimal_org_level     = module.environments_minimal_org_level.environment_details
-      minimal_account_level = module.environments_minimal_account_level.environment_details
-      yaml_file             = module.environments_yaml_file.environment_details
-      yaml_data             = module.environments_yaml_data.environment_details
-      yaml_data_full        = module.environments_yaml_data_full.environment_details
+      minimum               = module.environments_minimal.details
+      minimal_org_level     = module.environments_minimal_org_level.details
+      minimal_account_level = module.environments_minimal_account_level.details
+      yaml_file             = module.environments_yaml_file.details
+      yaml_data             = module.environments_yaml_data.details
+      yaml_data_full        = module.environments_yaml_data_full.details
     }
   ])
 }

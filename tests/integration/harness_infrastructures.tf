@@ -6,9 +6,9 @@
 locals {
   infrastructure_outputs = flatten([
     {
-      minimum        = module.infrastructures_minimal.infrastructure_details
-      yaml_file      = module.infrastructures_yaml_file.infrastructure_details
-      yaml_data_full = module.infrastructures_yaml_data_full.infrastructure_details
+      minimum        = module.infrastructures_minimal.details
+      yaml_file      = module.infrastructures_yaml_file.details
+      yaml_data_full = module.infrastructures_yaml_data_full.details
     }
   ])
 }

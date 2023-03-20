@@ -4,19 +4,33 @@ Terraform Module for creating and managing Harness Environments
 ## Summary
 This module handle the creation and managment of Environments by leveraging the Harness Terraform provider
 
+## Supported Terraform Versions
+_Note: These modules require a minimum of Terraform Version 1.2.0 to support the Input Validations and Precondition Lifecycle hooks leveraged in the code._
+
+_Note: The list of supported Terraform Versions is based on the most recent of each release which has been tested against this module._
+
+    - v1.2.9
+    - v1.3.9
+    - v1.4.0
+    - v1.4.1
+    - v1.4.2
+
 ## Providers
 
 ```
 terraform {
   required_providers {
     harness = {
-      source = "harness/harness"
+      source  = "harness/harness"
+      version = ">= 0.14"
     }
     time = {
-      source = "hashicorp/time"
+      source  = "hashicorp/time"
+      version = "~> 0.9.1"
     }
     random = {
       source = "hashicorp/random"
+      version = "~> 3.4.3"
     }
   }
 }
@@ -36,11 +50,18 @@ _Note: When the identifier variable is not provided, the module will automatical
 | project_id | [Optional] Provide an project reference ID. Must exist before execution | string | null | |
 | description | [Optional] (String) Description of the resource. | string | Harness Environment created via Terraform | |
 | color | [Optional] (String) Color of the Environment. | string | _Automatically selected if no value provided_ | |
+_Note: *ENVIRONMENT V2 Update* The YAML is needed if you want to define the Environment Variables and Overrides for the environment. Not Mandatory for Environment Creation nor Pipeline Usage_
 | yaml_file | [Optional] (String) File Path to yaml snippet to include. Must not be provided in conjuction with var.yaml_data.| string | null | One of `yaml_file` or `yaml_data` must be provided. |
 | yaml_data | [Optional] (String) Description of the resource. | string | null | One of `yaml_file` or `yaml_data` must be provided. |
 | yaml_render | [Optional] (Boolean) Determines if the pipeline data should be templatized or is a full pipeline reference file | bool | true | |
 | tags | [Optional] Provide a Map of Tags to associate with the project | map(any) | {} | |
 | global_tags | [Optional] Provide a Map of Tags to associate with the project and resources created | map(any) | {} | |
+
+## Outputs
+| Name | Description | Value |
+| --- | --- | --- |
+| details | Details for the created Harness environment | Map containing details of created environment
+| environment_details | [Deprecated] Details for the created Harness environment | Map containing details of created environment
 
 ## Examples
 ### Build a single Environment with minimal inputs using rendered payload
