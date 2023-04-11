@@ -23,6 +23,7 @@ variable "identifier" {
         EOF
   }
 }
+
 variable "name" {
   type        = string
   description = "[Required] (String) Name of the resource."
@@ -37,32 +38,43 @@ variable "name" {
         EOF
   }
 }
+
 variable "organization_id" {
   type        = string
-  description = "[Required] Provide an organization reference ID.  Must exist before execution"
+  description = "[Optional] Provide an organization reference ID.  Must exist before execution"
+  default     = null
 
   validation {
     condition = (
+      var.organization_id != null
+      ?
       length(var.organization_id) > 2
+      :
+      true
     )
     error_message = <<EOF
         Validation of an object failed.
-            * [Required] Provide an organization reference ID.  Must exist before execution.
+            * [Optional] Provide an organization name.  Must exist before execution.
         EOF
   }
 }
 
 variable "project_id" {
   type        = string
-  description = "[Required] Provide an project reference ID.  Must exist before execution"
+  description = "[Optional] Provide an project reference ID.  Must exist before execution"
+  default     = null
 
   validation {
     condition = (
+      var.project_id != null
+      ?
       can(regex("^([a-zA-Z0-9_]*)", var.project_id))
+      :
+      true
     )
     error_message = <<EOF
         Validation of an object failed.
-            * [Required] Provide an project reference ID.  Must exist before execution.
+            * [Optional] Provide an project name.  Must exist before execution.
         EOF
   }
 }

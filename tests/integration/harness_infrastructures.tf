@@ -6,9 +6,11 @@
 locals {
   infrastructure_outputs = flatten([
     {
-      minimum        = module.infrastructures_minimal.details
-      yaml_file      = module.infrastructures_yaml_file.details
-      yaml_data_full = module.infrastructures_yaml_data_full.details
+      minimum         = module.infrastructures_minimal.details
+      minimum_org     = module.infrastructures_org_minimal.details
+      minimum_account = module.infrastructures_account_minimal.details
+      yaml_file       = module.infrastructures_yaml_file.details
+      yaml_data_full  = module.infrastructures_yaml_data_full.details
     }
   ])
 }
@@ -32,6 +34,44 @@ module "infrastructures_minimal" {
   global_tags     = local.common_tags
 
 }
+
+module "infrastructures_org_minimal" {
+
+  source = "../../modules/infrastructures"
+
+  name            = "test-infrastructure-org-minimal"
+  organization_id = local.organization_id
+  environment_id  = local.environment_org_id
+  type            = "KubernetesDirect"
+  deployment_type = "Kubernetes"
+  yaml_data       = <<EOT
+  spec:
+    connectorRef: account.gfgf
+    namespace: asdasdsa
+    releaseName: release-<+INFRA_KEY>
+  EOT
+  global_tags     = local.common_tags
+
+}
+
+module "infrastructures_account_minimal" {
+
+  source = "../../modules/infrastructures"
+
+  name            = "${local.fmt_prefix}-test-infrastructure-acct-minimal"
+  environment_id  = local.environment_acct_id
+  type            = "KubernetesDirect"
+  deployment_type = "Kubernetes"
+  yaml_data       = <<EOT
+  spec:
+    connectorRef: account.gfgf
+    namespace: asdasdsa
+    releaseName: release-<+INFRA_KEY>
+  EOT
+  global_tags     = local.common_tags
+
+}
+
 module "infrastructures_yaml_file" {
 
   source = "../../modules/infrastructures"
