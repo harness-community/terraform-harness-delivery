@@ -18,6 +18,8 @@ _Note: Terraform version 1.4.1 will not work due to an issue with the Random pro
 
 ## Providers
 
+_Note: Terraform Provider must be a minimum of 0.14.9 to support Account or Organization level Infrastructure definitions._
+
 ```
 terraform {
   required_providers {
@@ -41,8 +43,8 @@ _Note: When the identifier variable is not provided, the module will automatical
 | Name | Description | Type | Default Value | Mandatory |
 | --- | --- | --- | --- | --- |
 | name | [Required] (String) Name of the resource. | string |  | X |
-| organization_id | [Required] Provide an organization reference ID. Must exist before execution | string | | X |
-| project_id | [Required] Provide an project reference ID. Must exist before execution | string | | X |
+| organization_id | [Optional] Provide an organization reference ID. Must exist before execution | string | | X |
+| project_id | [Optional] Provide an project reference ID. Must exist before execution | string | | X |
 | environment_id | Required] Provide an environment reference ID.  Must exist before execution | string | | X |
 | type | [Required] Type of Infrastructure. Valid values are: KubernetesDirect, KubernetesGcp, ServerlessAwsLambda, Pdc, KubernetesAzure, SshWinRmAzure, SshWinRmAws, AzureWebApp, ECS, GitOps, or CustomDeployment | string | | X |
 | deployment_type | [Required] Infrastructure deployment type. Valid values are Kubernetes, NativeHelm, Ssh, WinRm, ServerlessAwsLambda, AzureWebApp, Custom, ECS | string | | x |

@@ -17,6 +17,7 @@ _Note: The list of supported Terraform Versions is based on the most recent of e
 _Note: Terraform version 1.4.1 will not work due to an issue with the Random provider_
 
 ## Providers
+_Note: Terraform Provider must be a minimum of 0.14.9 to support Account or Organization level Infrastructure definitions._
 
 ```
 terraform {
@@ -41,8 +42,8 @@ _Note: When the identifier variable is not provided, the module will automatical
 | Name | Description | Type | Default Value | Mandatory |
 | --- | --- | --- | --- | --- |
 | name | [Required] (String) Name of the resource. | string |  | X |
-| organization_id | [Required] Provide an organization reference ID. Must exist before execution | string | | X |
-| project_id | [Required] Provide an project reference ID. Must exist before execution | string | | X |
+| organization_id | [Optional] Provide an organization reference ID. Must exist before execution | string | | X |
+| project_id | [Optional] Provide an project reference ID. Must exist before execution | string | | X |
 | identifier | [Optional] Provide a custom identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_' | string | null | |
 | description | [Optional] (String) Description of the resource. | string | Harness Services created via Terraform | |
 | yaml_file | [Optional] (String) File Path to yaml snippet to include. Must not be provided in conjuction with var.yaml_data.| string | null | One of `yaml_file` or `yaml_data` must be provided. |

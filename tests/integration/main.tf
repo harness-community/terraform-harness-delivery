@@ -27,3 +27,18 @@ resource "harness_platform_environment" "test" {
   tags       = ["purpose:terraform-testing"]
   type       = "PreProduction"
 }
+
+resource "harness_platform_environment" "test_org" {
+  identifier = "terraform_harness_delivery_org"
+  name       = "terraform-harness-delivery-org"
+  org_id     = harness_platform_organization.test.id
+  tags       = ["purpose:terraform-testing"]
+  type       = "PreProduction"
+}
+
+resource "harness_platform_environment" "test_acct" {
+  identifier = "${local.fmt_prefix}_terraform_harness_delivery_acct"
+  name       = "${local.fmt_prefix}-terraform-harness-delivery-acct"
+  tags       = ["purpose:terraform-testing"]
+  type       = "PreProduction"
+}

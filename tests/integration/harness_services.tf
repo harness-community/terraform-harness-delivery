@@ -6,9 +6,11 @@
 locals {
   service_outputs = flatten([
     {
-      minimum        = module.services_minimal.details
-      yaml_file      = module.services_yaml_file.details
-      yaml_data_full = module.services_yaml_data_full.details
+      minimum         = module.services_minimal.details
+      minimum_org     = module.services_minimal_org.details
+      minimum_account = module.services_minimal_account.details
+      yaml_file       = module.services_yaml_file.details
+      yaml_data_full  = module.services_yaml_data_full.details
     }
   ])
 }
@@ -26,6 +28,35 @@ module "services_minimal" {
     type: Ssh
   EOT
   global_tags     = local.common_tags
+
+}
+
+module "services_minimal_org" {
+
+  source = "../../modules/services"
+
+  name            = "test-service-org-minimal"
+  organization_id = local.organization_id
+  yaml_data       = <<EOT
+  serviceDefinition:
+    spec: {}
+    type: Ssh
+  EOT
+  global_tags     = local.common_tags
+
+}
+
+module "services_minimal_account" {
+
+  source = "../../modules/services"
+
+  name        = "${local.fmt_prefix}-test-service-account-minimal"
+  yaml_data   = <<EOT
+  serviceDefinition:
+    spec: {}
+    type: Ssh
+  EOT
+  global_tags = local.common_tags
 
 }
 
