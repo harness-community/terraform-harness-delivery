@@ -13,6 +13,9 @@ _Note: The list of supported Terraform Versions is based on the most recent of e
     - v1.3.9
     - v1.4.0
     - v1.4.2
+    - v1.4.3
+    - v1.4.4
+    - v1.4.5
 
 _Note: Terraform version 1.4.1 will not work due to an issue with the Random provider_
 
@@ -63,7 +66,7 @@ _Note: When the identifier variable is not provided, the module will automatical
 ### Build a single Service definition with minimal inputs
 ```
 module "services" {
-  source = "git@github.com:harness-community/terraform-harness-delivery.git//services"
+  source = "harness-community/delivery/harness//modules/services"
 
   name            = "test-service"
   organization_id = "myorg"
@@ -79,7 +82,7 @@ module "services" {
 ### Build a single Service with yaml_file overrides using rendered payload
 ```
 module "services" {
-  source = "git@github.com:harness-community/terraform-harness-delivery.git//services"
+  source = "harness-community/delivery/harness//modules/services"
 
   name            = "test-service"
   organization_id = "myorg"
@@ -92,7 +95,7 @@ module "services" {
 ### Build a single Service with raw yaml_data
 ```
 module "services" {
-  source = "git@github.com:harness-community/terraform-harness-content.git//services"
+  source = "harness-community/delivery/harness//modules/services"
 
   name            = "test-service"
   organization_id = "myorg"
@@ -145,7 +148,7 @@ variable "global_tags" {
 }
 
 module "services" {
-  source = "git@github.com:harness-community/terraform-harness-content.git//services"
+  source = "harness-community/delivery/harness//modules/services"
   for_each = { for service in var.services_list : service.name => service }
 
   name             = each.value.name

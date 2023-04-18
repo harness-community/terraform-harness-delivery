@@ -13,6 +13,9 @@ _Note: The list of supported Terraform Versions is based on the most recent of e
     - v1.3.9
     - v1.4.0
     - v1.4.2
+    - v1.4.3
+    - v1.4.4
+    - v1.4.5
 
 _Note: Terraform version 1.4.1 will not work due to an issue with the Random provider_
 
@@ -67,7 +70,7 @@ _Note: When the identifier variable is not provided, the module will automatical
 _One of the following must be provided - `yaml_data` or `yaml_file`_
 ```
 module "infrastructures" {
-  source = "git@github.com:harness-community/terraform-harness-delivery.git//infrastructures"
+  source = "harness-community/delivery/harness//modules/infrastructures"
 
   name             = "test-infrastructure"
   organization_id  = "myorg"
@@ -87,7 +90,7 @@ module "infrastructures" {
 ### Build a single Infrastructure with yaml_file overrides using rendered payload
 ```
 module "infrastructures" {
-  source = "git@github.com:harness-community/terraform-harness-content.git//infrastructures"
+  source = "harness-community/delivery/harness//modules/infrastructures"
 
   name             = "test-infrastructure"
   organization_id  = "myorg"
@@ -103,7 +106,7 @@ module "infrastructures" {
 ### Build a single Environment with raw yaml_data
 ```
 module "infrastructures" {
-  source = "git@github.com:harness-community/terraform-harness-content.git//infrastructures"
+  source = "harness-community/delivery/harness//modules/infrastructures"
 
   name             = "test-infrastructure"
   organization_id  = "myorg"
@@ -175,7 +178,7 @@ variable "global_tags" {
 }
 
 module "infrastructures" {
-  source = "git@github.com:harness-community/terraform-harness-content.git//infrastructures"
+  source = "harness-community/delivery/harness//modules/infrastructures"
   for_each = { for infrastructure in var.infrastructures_list : infrastructure.name => infrastructure }
 
   name             = each.value.name
