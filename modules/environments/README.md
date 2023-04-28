@@ -13,6 +13,9 @@ _Note: The list of supported Terraform Versions is based on the most recent of e
     - v1.3.9
     - v1.4.0
     - v1.4.2
+    - v1.4.3
+    - v1.4.4
+    - v1.4.5
 
 _Note: Terraform version 1.4.1 will not work due to an issue with the Random provider_
 
@@ -68,7 +71,7 @@ _Note: *ENVIRONMENT V2 Update* The YAML is needed if you want to define the Envi
 ### Build a single Environment with minimal inputs using rendered payload
 ```
 module "environments" {
-  source = "git@github.com:harness-community/terraform-harness-delivery.git//environments"
+  source = "harness-community/delivery/harness//modules/environments"
 
   name             = "test-environment"
   organization_id  = "myorg"
@@ -80,7 +83,7 @@ module "environments" {
 ### Build a single Environment with yaml_file overrides using rendered payload
 ```
 module "environments" {
-  source = "git@github.com:harness-community/terraform-harness-content.git//environments"
+  source = "harness-community/delivery/harness//modules/environments"
 
   name             = "test-example"
   organization_id  = "myorg"
@@ -94,7 +97,7 @@ module "environments" {
 ### Build a single Environment with raw yaml_data
 ```
 module "environments" {
-  source = "git@github.com:harness-community/terraform-harness-content.git//environments"
+  source = "harness-community/delivery/harness//modules/environments"
 
   name             = "test-example"
   organization_id  = "myorg"
@@ -169,7 +172,7 @@ variable "global_tags" {
 }
 
 module "environments" {
-  source = "git@github.com:harness-community/terraform-harness-content.git//environments"
+  source = "harness-community/delivery/harness//modules/environments"
   for_each = { for environment in var.environment_list : environment.name => environment }
 
   name             = each.value.name

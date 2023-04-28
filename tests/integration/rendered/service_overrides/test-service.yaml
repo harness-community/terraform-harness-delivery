@@ -1,0 +1,4 @@
+variables:
+  - name: success
+    type: String
+    value: "true"
