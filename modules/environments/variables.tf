@@ -18,7 +18,7 @@ variable "identifier" {
     )
     error_message = <<EOF
         Validation of an object failed.
-            * [Optional] Provide a custom identifier.  More than 1 but less than 128 characters and can only include alphanumeric or '_'.
+            * [Optional] Provide a custom identifier.  More than 0 but less than 128 characters and can only include alphanumeric or '_'.
             Note: If not set, Terraform will auto-assign an identifier based on the name of the resource
         EOF
   }
