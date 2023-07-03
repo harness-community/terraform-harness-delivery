@@ -125,3 +125,10 @@ variable "yaml_render" {
   description = "[Optional] (Boolean) Determines if the pipeline data should be templatized or is a full pipeline reference file"
   default     = true
 }
+
+variable "case_sensitive" {
+  type        = bool
+  description = "[Optional] Should identifiers be case sensitive by default? (Note: Setting this value to `true` will retain the case sensitivity of the identifier)"
+  default     = false
+}
+
