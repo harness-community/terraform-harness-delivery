@@ -5,20 +5,20 @@
 ####################
 variable "identifier" {
   type        = string
-  description = "[Optional] Provide a custom identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_'"
+  description = "[Optional] Provide a custom identifier.  More than 0 but less than 128 characters and can only include alphanumeric or '_'"
   default     = null
 
   validation {
     condition = (
       var.identifier != null
       ?
-      can(regex("^[0-9A-Za-z][0-9A-Za-z_]{2,127}$", var.identifier))
+      can(regex("^[0-9A-Za-z][0-9A-Za-z_]{0,127}$", var.identifier))
       :
       true
     )
     error_message = <<EOF
         Validation of an object failed.
-            * [Optional] Provide a custom identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_'.
+            * [Optional] Provide a custom identifier.  More than 0 but less than 128 characters and can only include alphanumeric or '_'.
             Note: If not set, Terraform will auto-assign an identifier based on the name of the resource
         EOF
   }
