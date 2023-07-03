@@ -5,7 +5,7 @@
 ####################
 variable "identifier" {
   type        = string
-  description = "[Optional] Provide a custom identifier.  More than 0 but less than 128 characters and can only include alphanumeric or '_'"
+  description = "[Optional] Provide a custom identifier.  Must be at least 1 character but less than 128 characters and can only include alphanumeric or '_'"
   default     = null
 
   validation {
@@ -18,22 +18,22 @@ variable "identifier" {
     )
     error_message = <<EOF
         Validation of an object failed.
-            * [Optional] Provide a custom identifier.  More than 0 but less than 128 characters and can only include alphanumeric or '_'.
+            * [Optional] Provide a custom identifier.  Must be at least 1 character but less than 128 characters and can only include alphanumeric or '_'.
             Note: If not set, Terraform will auto-assign an identifier based on the name of the resource
         EOF
   }
 }
 variable "name" {
   type        = string
-  description = "[Required] (String) Name of the resource."
+  description = "[Required] Provide a resource name. Must be at least 1 character but but less than 128 characters"
 
   validation {
     condition = (
-      length(var.name) > 2
+      length(var.name) > 1
     )
     error_message = <<EOF
         Validation of an object failed.
-            * [Required] Provide a project name.  Must be two or more characters.
+            * [Required] Provide a resource name. Must be at least 1 character but but less than 128 characters.
         EOF
   }
 }

@@ -44,8 +44,8 @@ _Note: When the identifier variable is not provided, the module will automatical
 
 | Name | Description | Type | Default Value | Mandatory |
 | --- | --- | --- | --- | --- |
-| name | [Required] (String) Name of the resource. | string |  | X |
-| organization_id | [Optional] Provide an organization reference ID. Must exist before execution | string | | X |
+| name | [Required] Provide a resource name. Must be at least 1 character but but less than 128 characters | string | | X |
+| identifier | [Optional] Provide a custom identifier.  Must be at least 1 character but but less than 128 characters and can only include alphanumeric or '_' | string | null | |
 | project_id | [Optional] Provide an project reference ID. Must exist before execution | string | | X |
 | environment_id | Required] Provide an environment reference ID.  Must exist before execution | string | | X |
 | type | [Required] Type of Infrastructure. Valid values are: KubernetesDirect, KubernetesGcp, ServerlessAwsLambda, Pdc, KubernetesAzure, SshWinRmAzure, SshWinRmAws, AzureWebApp, ECS, GitOps, or CustomDeployment | string | | X |
