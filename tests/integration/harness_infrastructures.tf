@@ -102,7 +102,7 @@ module "infrastructures_yaml_data_full" {
   infrastructureDefinition:
     name: test-infrastructure-yaml-data-full
     identifier: test_infrastructure_yaml_data_full
-    description: Harness Environment created via Terraform
+    description: Harness Infrastructure created via Terraform
     orgIdentifier: ${local.organization_id}
     projectIdentifier: ${local.project_id}
     environmentRef: ${local.environment_id}

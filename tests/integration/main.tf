@@ -44,12 +44,13 @@ resource "harness_platform_environment" "test_acct" {
 }
 
 resource "harness_platform_service" "test" {
-  count      = 3
-  identifier = "terraform_harness_delivery_${count.index}"
-  name       = "terraform-harness-delivery-${count.index}"
-  org_id     = harness_platform_organization.test.id
-  project_id = harness_platform_project.test.id
-  yaml       = <<EOT
+  count       = 3
+  identifier  = "terraform_harness_delivery_${count.index}"
+  name        = "terraform-harness-delivery-${count.index}"
+  description = "Testing Service for terraform_harness_delivery module"
+  org_id      = harness_platform_organization.test.id
+  project_id  = harness_platform_project.test.id
+  yaml        = <<EOT
   service:
     name: terraform-harness-delivery-${count.index}
     identifier: terraform_harness_delivery_${count.index}
@@ -60,14 +61,15 @@ resource "harness_platform_service" "test" {
       spec: {}
       type: Ssh
   EOT
-  tags       = ["purpose:terraform-testing"]
+  tags        = ["purpose:terraform-testing"]
 }
 
 resource "harness_platform_service" "test_org" {
-  identifier = "terraform_harness_delivery_org"
-  name       = "terraform-harness-delivery-org"
-  org_id     = harness_platform_organization.test.id
-  yaml       = <<EOT
+  identifier  = "terraform_harness_delivery_org"
+  name        = "terraform-harness-delivery-org"
+  description = "Testing Service for terraform_harness_delivery module"
+  org_id      = harness_platform_organization.test.id
+  yaml        = <<EOT
   service:
     name: terraform-harness-delivery-org
     identifier: terraform_harness_delivery_org
@@ -78,13 +80,14 @@ resource "harness_platform_service" "test_org" {
       spec: {}
       type: Ssh
   EOT
-  tags       = ["purpose:terraform-testing"]
+  tags        = ["purpose:terraform-testing"]
 }
 
 resource "harness_platform_service" "test_acct" {
-  identifier = "${local.fmt_prefix}_terraform_harness_delivery_account"
-  name       = "${local.fmt_prefix}-terraform-harness-delivery-account"
-  yaml       = <<EOT
+  identifier  = "${local.fmt_prefix}_terraform_harness_delivery_account"
+  name        = "${local.fmt_prefix}-terraform-harness-delivery-account"
+  description = "Testing Service for terraform_harness_delivery module"
+  yaml        = <<EOT
   service:
     name: ${local.fmt_prefix}-terraform-harness-delivery-account
     identifier: ${local.fmt_prefix}_terraform_harness_delivery_account
@@ -95,5 +98,5 @@ resource "harness_platform_service" "test_acct" {
       spec: {}
       type: Ssh
   EOT
-  tags       = ["purpose:terraform-testing"]
+  tags        = ["purpose:terraform-testing"]
 }
