@@ -95,7 +95,7 @@ variable "environment_id" {
 
 variable "type" {
   type        = string
-  description = "[Required] Type of Infrastructure. Valid values are: KubernetesDirect, KubernetesGcp, ServerlessAwsLambda, Pdc, KubernetesAzure, SshWinRmAzure, SshWinRmAws, AzureWebApp, ECS, GitOps, or CustomDeployment"
+  description = "[Required] Type of Infrastructure. Valid values are: KubernetesDirect, KubernetesGcp, ServerlessAwsLambda, Pdc, KubernetesAzure, SshWinRmAzure, SshWinRmAws, AzureWebApp, ECS, GitOps, CustomDeployment, TAS, KubernetesRancher, or AWS_SAM"
 
   validation {
     condition = (
@@ -111,24 +111,30 @@ variable "type" {
           "AzureWebApp",
           "ECS",
           "GitOps",
-          "CustomDeployment"
+          "CustomDeployment",
+          "TAS",
+          "KubernetesRancher",
+          "AWS_SAM"
         ], var.type)
       ])
     )
     error_message = <<EOF
         Validation of an object failed.
             * [Required]   # (String) Type of Infrastructure. Valid values are:
-              - KubernetesDirect
-              - KubernetesGcp
-              - ServerlessAwsLambda
-              - Pdc
-              - KubernetesAzure
-              - SshWinRmAzure
-              - SshWinRmAws
-              - AzureWebApp
-              - ECS
-              - GitOps
-              - CustomDeployment.
+            - KubernetesDirect
+            - KubernetesGcp
+            - ServerlessAwsLambda
+            - Pdc
+            - KubernetesAzure
+            - SshWinRmAzure
+            - SshWinRmAws
+            - AzureWebApp
+            - ECS
+            - GitOps
+            - CustomDeployment
+            - TAS
+            - KubernetesRancher
+            - AWS_SAM
         EOF
   }
 }
