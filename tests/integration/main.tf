@@ -54,6 +54,8 @@ resource "harness_platform_service" "test" {
     name: terraform-harness-delivery-${count.index}
     identifier: terraform_harness_delivery_${count.index}
     description: "Testing Service for terraform_harness_delivery module"
+    tags:
+      purpose: terraform-testing
     serviceDefinition:
       spec: {}
       type: Ssh
@@ -70,6 +72,8 @@ resource "harness_platform_service" "test_org" {
     name: terraform-harness-delivery-org
     identifier: terraform_harness_delivery_org
     description: "Testing Service for terraform_harness_delivery module"
+    tags:
+      purpose: terraform-testing
     serviceDefinition:
       spec: {}
       type: Ssh
@@ -85,6 +89,8 @@ resource "harness_platform_service" "test_acct" {
     name: ${local.fmt_prefix}-terraform-harness-delivery-account
     identifier: ${local.fmt_prefix}_terraform_harness_delivery_account
     description: "Testing Service for terraform_harness_delivery module"
+    tags:
+      purpose: terraform-testing
     serviceDefinition:
       spec: {}
       type: Ssh

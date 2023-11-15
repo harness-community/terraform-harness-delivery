@@ -37,7 +37,7 @@ resource "harness_platform_environment" "environments" {
   color = var.color != null ? var.color : "#${random_id.color_picker.hex}"
 
   # [Optional] (Set of String) Tags to associate with the resource.
-  tags = local.common_tags
+  tags = local.common_tags_tuple
 }
 
 # When creating a new Environment, there is a potential race-condition
