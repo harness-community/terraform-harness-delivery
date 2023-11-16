@@ -20,7 +20,7 @@ resource "harness_platform_service" "services" {
   description = var.description
 
   # [Optional] (Set of String) Tags to associate with the resource.
-  tags = local.common_tags
+  tags = local.common_tags_tuple
 }
 
 # When creating a new Service, there is a potential race-condition

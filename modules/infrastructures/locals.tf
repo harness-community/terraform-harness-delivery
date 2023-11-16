@@ -4,21 +4,18 @@
 #
 ####################
 locals {
-  required_tags = [
-    "created_by:Terraform"
-  ]
-  # Harness Tags are read into Terraform as a standard Map entry but needs to be
-  # converted into a list of key:value entries
-  global_tags = [for k, v in var.global_tags : "${k}:${v}"]
-  # Harness Tags are read into Terraform as a standard Map entry but needs to be
-  # converted into a list of key:value entries
-  tags = [for k, v in var.tags : "${k}:${v}"]
+  required_tags = {
+    created_by: "Terraform"
+  }
 
-  common_tags = flatten([
-    local.tags,
-    local.global_tags,
+  common_tags = merge(
+    var.tags,
+    var.global_tags,
     local.required_tags
-  ])
+  )
+  # Harness Tags are read into Terraform as a standard Map entry but needs to be
+  # converted into a list of key:value entries
+  common_tags_tuple = [for k, v in local.common_tags : "${k}:${v}"]
 
   auto_identifier = (
         replace(
@@ -91,12 +88,7 @@ locals {
         environment_identifier    = var.environment_id
         allow_simultaneous        = var.allow_simultaneous
         yaml_data                 = (local.yaml != null ? yamlencode(yamldecode(local.yaml)) : "")
-        tags = yamlencode([
-          for tag in local.common_tags : {
-            split(":", tag)[0] = split(":", tag)[1]
-          }
-
-        ])
+        tags                      = yamlencode(local.common_tags)
       }
     )
     :

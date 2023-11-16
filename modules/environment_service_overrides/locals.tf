@@ -30,6 +30,18 @@ locals {
     var.identifier
   )
 
+  environment_id = (
+          var.project_id != null
+          ?
+            var.environment_id
+          :
+            var.organization_id != null
+            ?
+              "org.${var.environment_id}"
+            :
+              "account.${var.environment_id}"
+        )
+
   yaml = (
     var.yaml_file != null
     ?
@@ -57,7 +69,7 @@ locals {
     templatefile(
       "${path.module}/templates/service_overrides_definition.yml.tpl",
       {
-        environment_identifier  = var.environment_id
+        environment_identifier  = local.environment_id
         service_identifier      = var.service_id
         yaml_data               = (local.yaml != null ? yamlencode(yamldecode(local.yaml)) : "")
       }

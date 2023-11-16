@@ -10,7 +10,7 @@ resource "harness_platform_environment_service_overrides" "overrides" {
   # [Required] (String) Unique identifier of the project.
   project_id = var.project_id
   # [Required] (String) The environment ID to which the overrides applies.
-  env_id = var.environment_id
+  env_id = local.environment_id
   # [Required] (String) The service ID to which the overrides applies.
   service_id = var.service_id
 

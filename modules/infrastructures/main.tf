@@ -53,7 +53,7 @@ resource "harness_platform_infrastructure" "infrastructure" {
   deployment_type = var.deployment_type
 
   # [Optional] (Set of String) Tags to associate with the resource.
-  tags = local.common_tags
+  tags = local.common_tags_tuple
 }
 
 # When creating a new Infrastructure, there is a potential race-condition

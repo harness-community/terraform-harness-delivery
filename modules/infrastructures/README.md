@@ -54,7 +54,7 @@ _Note: When the identifier variable is not provided, the module will automatical
 | description | [Optional] (String) Description of the resource. | string | Harness Infrastructure created via Terraform | |
 | yaml_file | [Optional] (String) File Path to yaml snippet to include. Must not be provided in conjuction with var.yaml_data.| string | null | One of `yaml_file` or `yaml_data` must be provided. |
 | yaml_data | [Optional] (String) Description of the resource. | string | null | One of `yaml_file` or `yaml_data` must be provided. |
-| yaml_render | [Optional] (Boolean) Determines if the pipeline data should be templatized or is a full pipeline reference file | bool | true | |
+| yaml_render | [Optional] (Boolean) Determines if the infrastructure data should be templatized or is a full infrastructure reference file | bool | true | |
 | case_sensitive | [Optional] Should identifiers be case sensitive by default? (Note: Setting this value to `true` will retain the case sensitivity of the identifier) | bool | false | |
 | tags | [Optional] Provide a Map of Tags to associate with the project | map(any) | {} | |
 | global_tags | [Optional] Provide a Map of Tags to associate with the project and resources created | map(any) | {} | |
