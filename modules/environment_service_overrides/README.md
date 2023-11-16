@@ -9,12 +9,14 @@ _Note: These modules require a minimum of Terraform Version 1.2.0 to support the
 
 _Note: The list of supported Terraform Versions is based on the most recent of each release which has been tested against this module._
 
-    - v1.2.9
-    - v1.3.9
-    - v1.4.6
-    - v1.5.0
-    - v1.5.1
-    - v1.5.2
+    - 1.2.9
+    - 1.3.9
+    - 1.4.6
+    - 1.5.7
+    - 1.6.0
+    - 1.6.1
+    - 1.6.2
+    - 1.6.3
 
 _Note: Terraform version 1.4.1 will not work due to an issue with the Random provider_
 
