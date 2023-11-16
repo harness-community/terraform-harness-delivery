@@ -9,12 +9,14 @@ _Note: These modules require a minimum of Terraform Version 1.2.0 to support the
 
 _Note: The list of supported Terraform Versions is based on the most recent of each release which has been tested against this module._
 
-    - v1.2.9
-    - v1.3.9
-    - v1.4.6
-    - v1.5.0
-    - v1.5.1
-    - v1.5.2
+    - 1.2.9
+    - 1.3.9
+    - 1.4.6
+    - 1.5.7
+    - 1.6.0
+    - 1.6.1
+    - 1.6.2
+    - 1.6.3
 
 _Note: Terraform version 1.4.1 will not work due to an issue with the Random provider_
 
@@ -46,7 +48,8 @@ _Note: When the identifier variable is not provided, the module will automatical
 | --- | --- | --- | --- | --- |
 | name | [Required] Provide a resource name. Must be at least 1 character but but less than 128 characters | string | | X |
 | identifier | [Optional] Provide a custom identifier.  Must be at least 1 character but but less than 128 characters and can only include alphanumeric or '_' | string | null | |
-| project_id | [Optional] Provide an project reference ID. Must exist before execution | string | | X |
+| organization_id | [Optional] Provide an organization reference ID.  Must exist before execution | string | | |
+| project_id | [Optional] Provide an project reference ID. Must exist before execution | string | | |
 | environment_id | Required] Provide an environment reference ID.  Must exist before execution | string | | X |
 | type | [Required] Type of Infrastructure. Valid values are: KubernetesDirect, KubernetesGcp, ServerlessAwsLambda, Pdc, KubernetesAzure, SshWinRmAzure, SshWinRmAws, AzureWebApp, ECS, GitOps, or CustomDeployment | string | | X |
 | deployment_type | [Required] Infrastructure deployment type. Valid values are Kubernetes, NativeHelm, Ssh, WinRm, ServerlessAwsLambda, AzureWebApp, Custom, ECS | string | | x |
@@ -56,14 +59,13 @@ _Note: When the identifier variable is not provided, the module will automatical
 | yaml_data | [Optional] (String) Description of the resource. | string | null | One of `yaml_file` or `yaml_data` must be provided. |
 | yaml_render | [Optional] (Boolean) Determines if the infrastructure data should be templatized or is a full infrastructure reference file | bool | true | |
 | case_sensitive | [Optional] Should identifiers be case sensitive by default? (Note: Setting this value to `true` will retain the case sensitivity of the identifier) | bool | false | |
-| tags | [Optional] Provide a Map of Tags to associate with the project | map(any) | {} | |
-| global_tags | [Optional] Provide a Map of Tags to associate with the project and resources created | map(any) | {} | |
+| tags | [Optional] Provide a Map of Tags to associate with the resource | map(any) | {} | |
+| global_tags | [Optional] Provide a Map of Tags to associate with all resources created | map(any) | {} | |
 
 ## Outputs
 | Name | Description | Value |
 | --- | --- | --- |
 | details | Details for the created Harness infrastructure | Map containing details of created infrastructure
-| infrastructure_details | [Deprecated] Details for the created Harness infrastructure | Map containing details of created infrastructure
 
 ## Examples
 ### Build a single Infrastructure definition with minimal inputs

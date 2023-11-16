@@ -33,7 +33,7 @@ resource "harness_platform_environment" "environments" {
   # [Optional] (String) Description of the resource.
   description = var.description
 
-  # [Optional] (String) Color of the project.
+  # [Optional] (String) Color of the environment.
   color = var.color != null ? var.color : "#${random_id.color_picker.hex}"
 
   # [Optional] (Set of String) Tags to associate with the resource.

@@ -9,12 +9,15 @@ _Note: These modules require a minimum of Terraform Version 1.2.0 to support the
 
 _Note: The list of supported Terraform Versions is based on the most recent of each release which has been tested against this module._
 
-    - v1.2.9
-    - v1.3.9
-    - v1.4.6
-    - v1.5.0
-    - v1.5.1
-    - v1.5.2
+    - 1.2.9
+    - 1.3.9
+    - 1.4.6
+    - 1.5.7
+    - 1.6.0
+    - 1.6.1
+    - 1.6.2
+    - 1.6.3
+
 
 _Note: Terraform version 1.4.1 will not work due to an issue with the Random provider_
 
@@ -48,24 +51,23 @@ _Note: When the identifier variable is not provided, the module will automatical
 | --- | --- | --- | --- | --- |
 | name | [Required] Provide a resource name. Must be at least 1 character but but less than 128 characters | string | | X |
 | identifier | [Optional] Provide a custom identifier.  Must be at least 1 character but but less than 128 characters and can only include alphanumeric or '_' | string | null | |
-| identifier | [Optional] Provide a custom identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_' | string | null | |
 | organization_id | [Optional] Provide an organization reference ID. Must exist before execution | string | null | |
 | project_id | [Optional] Provide an project reference ID. Must exist before execution | string | null | |
 | description | [Optional] (String) Description of the resource. | string | Harness Environment created via Terraform | |
+| type | [Required] (String) The type of environment. Valid values are nonprod or prod | string | nonprod | |
 | color | [Optional] (String) Color of the Environment. | string | _Automatically selected if no value provided_ | |
 _Note: *ENVIRONMENT V2 Update* The YAML is needed if you want to define the Environment Variables and Overrides for the environment. Not Mandatory for Environment Creation nor Pipeline Usage_
-| yaml_file | [Optional] (String) File Path to yaml snippet to include. Must not be provided in conjuction with var.yaml_data.| string | null | One of `yaml_file` or `yaml_data` must be provided. |
+| yaml_file | [Optional] (String) File Path to yaml snippet to include. Must not be provided in conjuction with `var.yaml_data`.| string | null | One of `yaml_file` or `yaml_data` must be provided. |
 | yaml_data | [Optional] (String) Description of the resource. | string | null | One of `yaml_file` or `yaml_data` must be provided. |
 | yaml_render | [Optional] (Boolean) Determines if the pipeline data should be templatized or is a full pipeline reference file | bool | true | |
 | case_sensitive | [Optional] Should identifiers be case sensitive by default? (Note: Setting this value to `true` will retain the case sensitivity of the identifier) | bool | false | |
-| tags | [Optional] Provide a Map of Tags to associate with the project | map(any) | {} | |
-| global_tags | [Optional] Provide a Map of Tags to associate with the project and resources created | map(any) | {} | |
+| tags | [Optional] Provide a Map of Tags to associate with the resource | map(any) | {} | |
+| global_tags | [Optional] Provide a Map of Tags to associate with all resources created | map(any) | {} | |
 
 ## Outputs
 | Name | Description | Value |
 | --- | --- | --- |
 | details | Details for the created Harness environment | Map containing details of created environment
-| environment_details | [Deprecated] Details for the created Harness environment | Map containing details of created environment
 
 ## Examples
 ### Build a single Environment with minimal inputs using rendered payload
