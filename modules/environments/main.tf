@@ -49,6 +49,6 @@ resource "time_sleep" "environment_setup" {
     harness_platform_environment.environments
   ]
 
-  create_duration  = "15s"
+  create_duration  = "30s"
   destroy_duration = "15s"
 }

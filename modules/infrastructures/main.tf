@@ -65,6 +65,6 @@ resource "time_sleep" "infrastructure_setup" {
     harness_platform_infrastructure.infrastructure
   ]
 
-  create_duration  = "15s"
+  create_duration  = "30s"
   destroy_duration = "15s"
 }

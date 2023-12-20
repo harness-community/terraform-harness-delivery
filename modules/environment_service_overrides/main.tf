@@ -27,6 +27,6 @@ resource "time_sleep" "overrides_setup" {
     harness_platform_environment_service_overrides.overrides
   ]
 
-  create_duration  = "15s"
+  create_duration  = "30s"
   destroy_duration = "15s"
 }
