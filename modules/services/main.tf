@@ -32,6 +32,6 @@ resource "time_sleep" "service_setup" {
     harness_platform_service.services
   ]
 
-  create_duration  = "15s"
+  create_duration  = "30s"
   destroy_duration = "15s"
 }
