@@ -118,6 +118,12 @@ variable "case_sensitive" {
   default     = false
 }
 
+variable "force_delete" {
+  type        = bool
+  description = "[Optional] Enable this flag for force deletion of service even if it has references"
+  default     = false
+}
+
 
 variable "tags" {
   type        = map(any)

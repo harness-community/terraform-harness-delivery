@@ -57,6 +57,7 @@ _Note: When the identifier variable is not provided, the module will automatical
 | yaml_data | [Optional] (String) Description of the resource. | string | null | One of `yaml_file` or `yaml_data` must be provided. |
 | yaml_render | [Optional] (Boolean) Determines if the pipeline data should be templatized or is a full pipeline reference file | bool | true | |
 | case_sensitive | [Optional] Should identifiers be case sensitive by default? (Note: Setting this value to `true` will retain the case sensitivity of the identifier) | bool | false | |
+| force_delete | [Optional] Enable this flag for force deletion of service | bool | false | |
 | tags | [Optional] Provide a Map of Tags to associate with the resource | map(any) | {} | |
 | global_tags | [Optional] Provide a Map of Tags to associate with all resources created | map(any) | {} | |
 
