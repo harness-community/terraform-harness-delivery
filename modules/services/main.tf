@@ -19,6 +19,9 @@ resource "harness_platform_service" "services" {
   # [Optional] (String) Description of the resource.
   description = var.description
 
+  # [Optional] (String) Enable this flag for force deletion of service
+  force_delete = var.force_delete
+
   # [Optional] (Set of String) Tags to associate with the resource.
   tags = local.common_tags_tuple
 }
@@ -33,5 +36,5 @@ resource "time_sleep" "service_setup" {
   ]
 
   create_duration  = "30s"
-  destroy_duration = "15s"
+  destroy_duration = "30s"
 }
